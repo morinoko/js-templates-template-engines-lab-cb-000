@@ -5,31 +5,31 @@
   </head>
   <body>
     <main>
+      <form id="post-form" onsubmit="createPost(); return false;">
+        <div>
+          <p>Title</p>
+          <input name="title" id="postTitle" type="text" />
+        </div>
+        <div>
+          <p>Content</p>
+          <input name="body" id="postBody" type="textarea" rows="4" cols="50">
+          </input>
+        </div>
+        <div>
+          <p>Author</p>
+          <input name="author" id="author" type="text" />
+        </div>
+        <div>
+          <input type="submit">
+        </div>
+      </form>
     </main>
     <script src="node_modules/lodash/lodash.min.js"></script>
     <script src="index.js"></script>
 
-    <form id="post-form" onsubmit="createPost();">
-      <div>
-        <p>Title</p>
-        <input name="title" id="postTitle" type="text"></input>
-      </div>
-      <div>
-        <p>Content</p>
-        <input name="body" id="postBody" type="textarea" rows="4" cols="50" />
-        </input>
-      </div>
-      <div>
-        <p>Author</p>
-        <input name="author" id="author" type="text"></input>
-      </div>
-      <div>
-        <input type="submit">
-      </div>
-    </form>
-
     <script id="page-template" type="text/x-lodash-template">
       <div id="post">
+        <%= post %>
       </div>
       <div id="sidebar">
       </div>
@@ -37,22 +37,28 @@
 
     <script id="post-template" type="text/x-lodash-template">
       <article>
-        <header></header>
-        <footer></footer>
+        <header><h1><%= title %></h1></header>
+        <div><%= content %></div>
+        <footer><%= author %></footer>
       </article>
     </script>
 
     <script id="comments-template" type="text/x-lodash-template">
-      <form>
-        <input name="comment" id="commentText" type="text"></input>
-        <input name="name" id="commenterName" type="text"></input>
+      <form onsubmit="postComment(); return false;">
+        <div>Comment: <input name="comment" id="commentText" type="text" /></div>
+        <div>Name: <input name="name" id="commenterName" type="text" /></div>
+        <div><input type="submit" /></div>
       </form>
+
       <div id="comments">
       </div>
     </script>
 
     <script id="comment-template" type="text/x-lodash-template">
-      <footer></footer>
+      <div class="comment">
+        <p><%- comment %></p>
+        <footer><%- commenterName %></footer>
+      </div>
     </script>
     <!-- Open this file and call `mocha.run()` in console to run tests -->
     <div id="mocha"></div>
